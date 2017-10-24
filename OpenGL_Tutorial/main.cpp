@@ -2,6 +2,7 @@
 //
 
 #include "stdafx.h"
+#include <GL/glew.h>
 #include <GL/glut.h>
 
 //#pragma comment(linker,"/subsystem:\"Windows\" /ENTRY:\"mainCRTStartup\"")
