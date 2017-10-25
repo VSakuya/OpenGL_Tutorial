@@ -4,43 +4,75 @@
 #include "stdafx.h"
 #include <GL/glew.h>
 #include <GL/freeglut.h>
+#include "math_3d.h"
 
 //#pragma comment(linker,"/subsystem:\"Windows\" /ENTRY:\"mainCRTStartup\"")
-#pragma comment(lib, "glew32.lib")
-/*在 OpenGL 中，这是我们第一次遇到 ‘state’ 这个概念。提出 ‘state’ 的原因是：渲染是一个复杂的任务，不能够像对待一个接受参数的函数命令（设计良好的函数不会有太多参数）一样对待它。你需要去指定 shaders、buffers 和各种可以影响渲染过程的属性。此外，你会经常需要让几个渲染操作有同样的设置（比如，如果你从未禁用深度测试的功能，那就不用在每次渲染调用的时候去设置它）。这就是为什么 “大部分渲染操作的配置是通过设置 OpenGL 状态机内的属性和参数值来完成，而渲染命令仅能使用跟绘制的顶点的个数和初始偏移量有关的个别参数” 的原因。在调用一个状态改变函数之后（改变 OpenGL 的状态），这个状态将保持不变直到用不同的参数值再次调用此函数。上面这个函数是用来设置清除帧缓存（后面介绍）时要用到的颜色。颜色有四个通道（RGBA），而且它被指定为 0.0 – 1.0 之间标准化的值。*/
+//#pragma comment(lib, "glew32.lib")
 void RenderDisplay(void)
 {
 
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-	/*第一个函数的功能仅仅就是清除帧缓存（使用我们在上面指定过的颜色）。第二个函数调用是为了告诉 GLUT 在 backbuffer 和 frontbuffer 之间进行交换。在通过帧回调函数的下一个循环中，我们将场景渲染到当前的 frontbuffer 中，而 backbuffer 将被显示。*/
 	glClear(GL_COLOR_BUFFER_BIT);
 	glutSwapBuffers();
 }
 
+void CreateVertexBuffer() 
+{
+	Vector3f Vertices[1];
+	Vertices[0] = Vector3f(0.0f, 0.0f, 0.0f);
+
+	/*Vertex Buffer Object, We allocate a GLuint in the global part of the program to store the handle of the vertex buffer object. You will see later that most (if not all) OpenGL objects are accessed via a variable of GLuint type*/
+	GLuint VBO;
+
+	/*the first one specifies the number of objects you want to create and the second is the address of an array of GLuints to store the handles that the driver allocates for you*/
+	glGenBuffers(1, &VBO);
+
+	/*In OpenGL we bind the handle to a target name and then execute commands on that target. These commmands affect the bounded handle until another one is bound in its stead or the call above takes zero as the handle.*/
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+	/*GL_STATIC_DRAW. The opposite will be GL_DYNAMIC_DRAW. While this is only a hint to OpenGL it is a good thing to give some thought as to the proper flag to use. The driver can rely on it for optimization heuristics (such as what is the best place in memory to store the buffer).*/
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
+
+	/*In this tutorial we are not yet using any shader but the vertex position we have loaded into the buffer is treated as vertex attribute index 0 in the fixed function pipeline (which becomes active when there is no shader bound). You must enable each vertex attribute or else the data will not be accessible by the pipeline.*/
+	glEnableVertexAttribArray(0);
+
+	/*Here we bind our buffer again as we prepare for making the draw call. In this small program we only have one vertex buffer so making this call every frame is redundent but in more complex programs there are multiple buffers to store your various models and you must update the pipeline state with the buffer you intend to use.*/
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+	/*This call tells the pipeline how to interpret the data inside the buffer. The first parameter specifies the index of the attribute. In our case we know that it is zero by default but when we start using shaders we will either need to explicitly set the index in the shader or query it. The second parameter is the number of components in the attribute (3 for X, Y and Z). The third parameter is the data type of each component. The next parameter indicates whether we want our attribute to be normalized before it is used in the pipeline. It our case we want the data to pass un-changed. The fifth parameter (called the 'stride') is the number of bytes between two instances of that attribute in the buffer. When there is only one attribute (e.g. the buffer contains only vertex positions) and the data is tightly packed we pass the value zero. If we have an array of structures that contain a position and normal (each one is a vector of 3 floats) we will pass the size of the structure in bytes (6 * 4 = 24). The last parameter is useful in the case of the previous example. We need to specify the offset inside the structure where the pipeline will find our attribute. In the case of the structure with the position and normal the offset of the position is zero while the offset of the normal is 12.*/
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, 0);
+
+	glDrawArrays(GL_POINTS, 0, 1);
+
+	glDisableVertexAttribArray(0);
+}
+
 int main(int argc, char* argv[])
 {
-	/*这个函数是为了初始化 GLUT。里面的参数可以直接从命令行中得到，同时可以包含其他有用的选项比如 '-sync' 和 '-gldebug'，这样可以自动的检查GL的错误并独立的显示它们。*/
 	glutInit(&argc, argv);
 
-	/*现在我们学习设置一些 GLUT 的参数，GLUT_DOUBLE 设置双缓冲（double buffering，即当一个 buffer 显示的时候，另一个 buffer 用来绘制）和 color buffer，后者是大多数渲染结束的地方（比如屏幕）。后面章节中我们经常用到这两个和其他的参数。*/
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
 
-	/*这些函数设置了窗口的参数（包括窗口大小、窗口位置以及窗口标题）并创建窗口。*/
 	int WindowWidth = 1024;
 	int WindowHeigth = 768;
 	glutInitWindowSize(WindowWidth, WindowHeigth);
 	int screenWidth = glutGet(GLUT_SCREEN_WIDTH);
 	int screenHeight = glutGet(GLUT_SCREEN_HEIGHT);
 	glutInitWindowPosition((screenWidth - WindowWidth) / 2, (screenHeight - WindowHeigth) / 2);
-	glutCreateWindow("Tutorial 01");
+	glutCreateWindow("Tutorial 02");
 
-	/*GLUT 可以和基本的窗口系统进行交互，并且提供给我们一些回调函数。在这里我们仅仅使用了一个主回调函数，这个主回调函数完成了一帧中的所有渲染工作。这个函数被 GLUT 内部循环不断的调用。*/
 	glutDisplayFunc(RenderDisplay);
 
-	/*这个函数调用将控制传递给 GLUT，并且开启了它自己内部的循环。在这个循环中，它监听来自窗口系统的事件并通过我们设置的回调函数传递给 GLUT。在本例子中，GLUT只调用我们定义用来显示窗口的回调函数（RenderDisplay），以使我们能渲染帧。*/
+	CreateVertexBuffer();
+
+	/*Init Glew*/
+	GLenum result = glewInit();
+	if (result != GLEW_OK)
+	{
+		fprintf(stderr, "Error: '%s'", glewGetErrorString(result));
+	}
 	glutMainLoop();
-	glewInit();
 
 }
 
