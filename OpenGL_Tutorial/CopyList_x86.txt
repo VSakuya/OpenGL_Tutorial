@@ -1,2 +1,2 @@
 .\freeglut\build\Win32\bin\Release\freeglut.dll
-.\glew-2.0.0\bin\Release\Win32\glew32.dll
+.\glew-2.1.0\bin\Release\Win32\glew32.dll
