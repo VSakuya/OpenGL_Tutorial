@@ -1,2 +1,2 @@
-.\glut-3.7\include\GL\lib\glut32.dll
+.\freeglut\build\Win32\bin\Release\freeglut.dll
 .\glew-2.0.0\bin\Release\Win32\glew32.dll

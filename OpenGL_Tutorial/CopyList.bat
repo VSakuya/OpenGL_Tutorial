@@ -1,7 +1,7 @@
 @echo off
 echo 复制运行项目所需文件...
-set sys="233"
-echo %sys%
+set sys=%2%
+echo %2%
 if %sys%=="x86" goto x86
 if %sys%=="x64" goto x64
 :x86
