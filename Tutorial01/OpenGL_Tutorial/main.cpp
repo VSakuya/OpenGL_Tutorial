@@ -6,7 +6,7 @@
 #include <GL/freeglut.h>
 
 //#pragma comment(linker,"/subsystem:\"Windows\" /ENTRY:\"mainCRTStartup\"")
-#pragma comment(lib, "glew32.lib")
+/*#pragma comment(lib, "glew32.lib")*/
 /*在 OpenGL 中，这是我们第一次遇到 ‘state’ 这个概念。提出 ‘state’ 的原因是：渲染是一个复杂的任务，不能够像对待一个接受参数的函数命令（设计良好的函数不会有太多参数）一样对待它。你需要去指定 shaders、buffers 和各种可以影响渲染过程的属性。此外，你会经常需要让几个渲染操作有同样的设置（比如，如果你从未禁用深度测试的功能，那就不用在每次渲染调用的时候去设置它）。这就是为什么 “大部分渲染操作的配置是通过设置 OpenGL 状态机内的属性和参数值来完成，而渲染命令仅能使用跟绘制的顶点的个数和初始偏移量有关的个别参数” 的原因。在调用一个状态改变函数之后（改变 OpenGL 的状态），这个状态将保持不变直到用不同的参数值再次调用此函数。上面这个函数是用来设置清除帧缓存（后面介绍）时要用到的颜色。颜色有四个通道（RGBA），而且它被指定为 0.0 – 1.0 之间标准化的值。*/
 void RenderDisplay(void)
 {

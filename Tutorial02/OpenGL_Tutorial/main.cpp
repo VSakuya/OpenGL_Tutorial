@@ -7,33 +7,15 @@
 #include "math_3d.h"
 
 //#pragma comment(linker,"/subsystem:\"Windows\" /ENTRY:\"mainCRTStartup\"")
-#pragma comment(linker," /NODEFAULTLIB:libcmt.lib")
+//#pragma comment(linker," /NODEFAULTLIB:libcmt.lib")
 /*#pragma comment(lib, "glew32s.lib")*/
+
+/*Vertex Buffer Object, We allocate a GLuint in the global part of the program to store the handle of the vertex buffer object. You will see later that most (if not all) OpenGL objects are accessed via a variable of GLuint type*/
+GLuint VBO;
+
 void RenderDisplay(void)
 {
-
-	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
-
 	glClear(GL_COLOR_BUFFER_BIT);
-	glutSwapBuffers();
-}
-
-void CreateVertexBuffer() 
-{
-	Vector3f Vertices[1];
-	Vertices[0] = Vector3f(0.0f, 0.0f, 0.0f);
-
-	/*Vertex Buffer Object, We allocate a GLuint in the global part of the program to store the handle of the vertex buffer object. You will see later that most (if not all) OpenGL objects are accessed via a variable of GLuint type*/
-	GLuint VBO;
-
-	/*the first one specifies the number of objects you want to create and the second is the address of an array of GLuints to store the handles that the driver allocates for you*/
-	glGenBuffers(1, &VBO);
-
-	/*In OpenGL we bind the handle to a target name and then execute commands on that target. These commmands affect the bounded handle until another one is bound in its stead or the call above takes zero as the handle.*/
-	glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
-	/*GL_STATIC_DRAW. The opposite will be GL_DYNAMIC_DRAW. While this is only a hint to OpenGL it is a good thing to give some thought as to the proper flag to use. The driver can rely on it for optimization heuristics (such as what is the best place in memory to store the buffer).*/
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
 
 	/*In this tutorial we are not yet using any shader but the vertex position we have loaded into the buffer is treated as vertex attribute index 0 in the fixed function pipeline (which becomes active when there is no shader bound). You must enable each vertex attribute or else the data will not be accessible by the pipeline.*/
 	glEnableVertexAttribArray(0);
@@ -47,6 +29,25 @@ void CreateVertexBuffer()
 	glDrawArrays(GL_POINTS, 0, 1);
 
 	glDisableVertexAttribArray(0);
+
+	glutSwapBuffers();
+}
+
+void CreateVertexBuffer() 
+{
+	Vector3f Vertices[1];
+
+	Vertices[0] = Vector3f(0.0f, 0.0f, 0.0f);
+
+	/*the first one specifies the number of objects you want to create and the second is the address of an array of GLuints to store the handles that the driver allocates for you*/
+	glGenBuffers(1, &VBO);
+
+	/*In OpenGL we bind the handle to a target name and then execute commands on that target. These commmands affect the bounded handle until another one is bound in its stead or the call above takes zero as the handle.*/
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+
+	/*GL_STATIC_DRAW. The opposite will be GL_DYNAMIC_DRAW. While this is only a hint to OpenGL it is a good thing to give some thought as to the proper flag to use. The driver can rely on it for optimization heuristics (such as what is the best place in memory to store the buffer).*/
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertices), Vertices, GL_STATIC_DRAW);
+
 }
 
 int main(int argc, char* argv[])
@@ -65,16 +66,20 @@ int main(int argc, char* argv[])
 
 	glutDisplayFunc(RenderDisplay);
 
-	CreateVertexBuffer();
-
 	/*Init Glew*/
 	GLenum result = glewInit();
 	if (result != GLEW_OK)
 	{
 		fprintf(stderr, "Error: '%s'", glewGetErrorString(result));
 	}
+
+
+
+	CreateVertexBuffer();
+
 	glutMainLoop();
 
+	return 0;
 }
 
 
