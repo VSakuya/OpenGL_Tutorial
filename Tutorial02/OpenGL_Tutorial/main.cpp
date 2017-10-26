@@ -7,7 +7,8 @@
 #include "math_3d.h"
 
 //#pragma comment(linker,"/subsystem:\"Windows\" /ENTRY:\"mainCRTStartup\"")
-//#pragma comment(lib, "glew32.lib")
+#pragma comment(linker," /NODEFAULTLIB:libcmt.lib")
+/*#pragma comment(lib, "glew32s.lib")*/
 void RenderDisplay(void)
 {
 
