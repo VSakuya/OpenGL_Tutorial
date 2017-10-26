@@ -1,4 +1,4 @@
-// OpenGL_Tutorial.cpp : Defines the entry point for the console application.
+ï»¿// OpenGL_Tutorial.cpp : Defines the entry point for the console application.
 //
 
 #include "stdafx.h"
@@ -6,27 +6,27 @@
 #include <GL/freeglut.h>
 
 //#pragma comment(linker,"/subsystem:\"Windows\" /ENTRY:\"mainCRTStartup\"")
-/*#pragma comment(lib, "glew32.lib")*/
-/*ÔÚ OpenGL ÖÐ£¬ÕâÊÇÎÒÃÇµÚÒ»´ÎÓöµ½ ¡®state¡¯ Õâ¸ö¸ÅÄî¡£Ìá³ö ¡®state¡¯ µÄÔ­ÒòÊÇ£ºäÖÈ¾ÊÇÒ»¸ö¸´ÔÓµÄÈÎÎñ£¬²»ÄÜ¹»Ïñ¶Ô´ýÒ»¸ö½ÓÊÜ²ÎÊýµÄº¯ÊýÃüÁî£¨Éè¼ÆÁ¼ºÃµÄº¯Êý²»»áÓÐÌ«¶à²ÎÊý£©Ò»Ñù¶Ô´ýËü¡£ÄãÐèÒªÈ¥Ö¸¶¨ shaders¡¢buffers ºÍ¸÷ÖÖ¿ÉÒÔÓ°ÏìäÖÈ¾¹ý³ÌµÄÊôÐÔ¡£´ËÍâ£¬Äã»á¾­³£ÐèÒªÈÃ¼¸¸öäÖÈ¾²Ù×÷ÓÐÍ¬ÑùµÄÉèÖÃ£¨±ÈÈç£¬Èç¹ûÄã´ÓÎ´½ûÓÃÉî¶È²âÊÔµÄ¹¦ÄÜ£¬ÄÇ¾Í²»ÓÃÔÚÃ¿´ÎäÖÈ¾µ÷ÓÃµÄÊ±ºòÈ¥ÉèÖÃËü£©¡£Õâ¾ÍÊÇÎªÊ²Ã´ ¡°´ó²¿·ÖäÖÈ¾²Ù×÷µÄÅäÖÃÊÇÍ¨¹ýÉèÖÃ OpenGL ×´Ì¬»úÄÚµÄÊôÐÔºÍ²ÎÊýÖµÀ´Íê³É£¬¶øäÖÈ¾ÃüÁî½öÄÜÊ¹ÓÃ¸ú»æÖÆµÄ¶¥µãµÄ¸öÊýºÍ³õÊ¼Æ«ÒÆÁ¿ÓÐ¹ØµÄ¸ö±ð²ÎÊý¡± µÄÔ­Òò¡£ÔÚµ÷ÓÃÒ»¸ö×´Ì¬¸Ä±äº¯ÊýÖ®ºó£¨¸Ä±ä OpenGL µÄ×´Ì¬£©£¬Õâ¸ö×´Ì¬½«±£³Ö²»±äÖ±µ½ÓÃ²»Í¬µÄ²ÎÊýÖµÔÙ´Îµ÷ÓÃ´Ëº¯Êý¡£ÉÏÃæÕâ¸öº¯ÊýÊÇÓÃÀ´ÉèÖÃÇå³ýÖ¡»º´æ£¨ºóÃæ½éÉÜ£©Ê±ÒªÓÃµ½µÄÑÕÉ«¡£ÑÕÉ«ÓÐËÄ¸öÍ¨µÀ£¨RGBA£©£¬¶øÇÒËü±»Ö¸¶¨Îª 0.0 ¨C 1.0 Ö®¼ä±ê×¼»¯µÄÖµ¡£*/
+/*#pragma comment(lib, "glew32.lib")*/ 
+/*åœ¨ OpenGL ä¸­ï¼Œè¿™æ˜¯æˆ‘ä»¬ç¬¬ä¸€æ¬¡é‡åˆ° â€˜stateâ€™ è¿™ä¸ªæ¦‚å¿µã€‚æå‡º â€˜stateâ€™ çš„åŽŸå› æ˜¯ï¼šæ¸²æŸ“æ˜¯ä¸€ä¸ªå¤æ‚çš„ä»»åŠ¡ï¼Œä¸èƒ½å¤Ÿåƒå¯¹å¾…ä¸€ä¸ªæŽ¥å—å‚æ•°çš„å‡½æ•°å‘½ä»¤ï¼ˆè®¾è®¡è‰¯å¥½çš„å‡½æ•°ä¸ä¼šæœ‰å¤ªå¤šå‚æ•°ï¼‰ä¸€æ ·å¯¹å¾…å®ƒã€‚ä½ éœ€è¦åŽ»æŒ‡å®š shadersã€buffers å’Œå„ç§å¯ä»¥å½±å“æ¸²æŸ“è¿‡ç¨‹çš„å±žæ€§ã€‚æ­¤å¤–ï¼Œä½ ä¼šç»å¸¸éœ€è¦è®©å‡ ä¸ªæ¸²æŸ“æ“ä½œæœ‰åŒæ ·çš„è®¾ç½®ï¼ˆæ¯”å¦‚ï¼Œå¦‚æžœä½ ä»Žæœªç¦ç”¨æ·±åº¦æµ‹è¯•çš„åŠŸèƒ½ï¼Œé‚£å°±ä¸ç”¨åœ¨æ¯æ¬¡æ¸²æŸ“è°ƒç”¨çš„æ—¶å€™åŽ»è®¾ç½®å®ƒï¼‰ã€‚è¿™å°±æ˜¯ä¸ºä»€ä¹ˆ â€œå¤§éƒ¨åˆ†æ¸²æŸ“æ“ä½œçš„é…ç½®æ˜¯é€šè¿‡è®¾ç½® OpenGL çŠ¶æ€æœºå†…çš„å±žæ€§å’Œå‚æ•°å€¼æ¥å®Œæˆï¼Œè€Œæ¸²æŸ“å‘½ä»¤ä»…èƒ½ä½¿ç”¨è·Ÿç»˜åˆ¶çš„é¡¶ç‚¹çš„ä¸ªæ•°å’Œåˆå§‹åç§»é‡æœ‰å…³çš„ä¸ªåˆ«å‚æ•°â€ çš„åŽŸå› ã€‚åœ¨è°ƒç”¨ä¸€ä¸ªçŠ¶æ€æ”¹å˜å‡½æ•°ä¹‹åŽï¼ˆæ”¹å˜ OpenGL çš„çŠ¶æ€ï¼‰ï¼Œè¿™ä¸ªçŠ¶æ€å°†ä¿æŒä¸å˜ç›´åˆ°ç”¨ä¸åŒçš„å‚æ•°å€¼å†æ¬¡è°ƒç”¨æ­¤å‡½æ•°ã€‚ä¸Šé¢è¿™ä¸ªå‡½æ•°æ˜¯ç”¨æ¥è®¾ç½®æ¸…é™¤å¸§ç¼“å­˜ï¼ˆåŽé¢ä»‹ç»ï¼‰æ—¶è¦ç”¨åˆ°çš„é¢œè‰²ã€‚é¢œè‰²æœ‰å››ä¸ªé€šé“ï¼ˆRGBAï¼‰ï¼Œè€Œä¸”å®ƒè¢«æŒ‡å®šä¸º 0.0 â€“ 1.0 ä¹‹é—´æ ‡å‡†åŒ–çš„å€¼ã€‚*/
 void RenderDisplay(void)
 {
 
 	glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
 
-	/*µÚÒ»¸öº¯ÊýµÄ¹¦ÄÜ½ö½ö¾ÍÊÇÇå³ýÖ¡»º´æ£¨Ê¹ÓÃÎÒÃÇÔÚÉÏÃæÖ¸¶¨¹ýµÄÑÕÉ«£©¡£µÚ¶þ¸öº¯Êýµ÷ÓÃÊÇÎªÁË¸æËß GLUT ÔÚ backbuffer ºÍ frontbuffer Ö®¼ä½øÐÐ½»»»¡£ÔÚÍ¨¹ýÖ¡»Øµ÷º¯ÊýµÄÏÂÒ»¸öÑ­»·ÖÐ£¬ÎÒÃÇ½«³¡¾°äÖÈ¾µ½µ±Ç°µÄ frontbuffer ÖÐ£¬¶ø backbuffer ½«±»ÏÔÊ¾¡£*/
+	/*ç¬¬ä¸€ä¸ªå‡½æ•°çš„åŠŸèƒ½ä»…ä»…å°±æ˜¯æ¸…é™¤å¸§ç¼“å­˜ï¼ˆä½¿ç”¨æˆ‘ä»¬åœ¨ä¸Šé¢æŒ‡å®šè¿‡çš„é¢œè‰²ï¼‰ã€‚ç¬¬äºŒä¸ªå‡½æ•°è°ƒç”¨æ˜¯ä¸ºäº†å‘Šè¯‰ GLUT åœ¨ backbuffer å’Œ frontbuffer ä¹‹é—´è¿›è¡Œäº¤æ¢ã€‚åœ¨é€šè¿‡å¸§å›žè°ƒå‡½æ•°çš„ä¸‹ä¸€ä¸ªå¾ªçŽ¯ä¸­ï¼Œæˆ‘ä»¬å°†åœºæ™¯æ¸²æŸ“åˆ°å½“å‰çš„ frontbuffer ä¸­ï¼Œè€Œ backbuffer å°†è¢«æ˜¾ç¤ºã€‚*/
 	glClear(GL_COLOR_BUFFER_BIT);
 	glutSwapBuffers();
 }
 
 int main(int argc, char* argv[])
 {
-	/*Õâ¸öº¯ÊýÊÇÎªÁË³õÊ¼»¯ GLUT¡£ÀïÃæµÄ²ÎÊý¿ÉÒÔÖ±½Ó´ÓÃüÁîÐÐÖÐµÃµ½£¬Í¬Ê±¿ÉÒÔ°üº¬ÆäËûÓÐÓÃµÄÑ¡Ïî±ÈÈç '-sync' ºÍ '-gldebug'£¬ÕâÑù¿ÉÒÔ×Ô¶¯µÄ¼ì²éGLµÄ´íÎó²¢¶ÀÁ¢µÄÏÔÊ¾ËüÃÇ¡£*/
+	/*è¿™ä¸ªå‡½æ•°æ˜¯ä¸ºäº†åˆå§‹åŒ– GLUTã€‚é‡Œé¢çš„å‚æ•°å¯ä»¥ç›´æŽ¥ä»Žå‘½ä»¤è¡Œä¸­å¾—åˆ°ï¼ŒåŒæ—¶å¯ä»¥åŒ…å«å…¶ä»–æœ‰ç”¨çš„é€‰é¡¹æ¯”å¦‚ '-sync' å’Œ '-gldebug'ï¼Œè¿™æ ·å¯ä»¥è‡ªåŠ¨çš„æ£€æŸ¥GLçš„é”™è¯¯å¹¶ç‹¬ç«‹çš„æ˜¾ç¤ºå®ƒä»¬ã€‚*/
 	glutInit(&argc, argv);
 
-	/*ÏÖÔÚÎÒÃÇÑ§Ï°ÉèÖÃÒ»Ð© GLUT µÄ²ÎÊý£¬GLUT_DOUBLE ÉèÖÃË«»º³å£¨double buffering£¬¼´µ±Ò»¸ö buffer ÏÔÊ¾µÄÊ±ºò£¬ÁíÒ»¸ö buffer ÓÃÀ´»æÖÆ£©ºÍ color buffer£¬ºóÕßÊÇ´ó¶àÊýäÖÈ¾½áÊøµÄµØ·½£¨±ÈÈçÆÁÄ»£©¡£ºóÃæÕÂ½ÚÖÐÎÒÃÇ¾­³£ÓÃµ½ÕâÁ½¸öºÍÆäËûµÄ²ÎÊý¡£*/
+	/*çŽ°åœ¨æˆ‘ä»¬å­¦ä¹ è®¾ç½®ä¸€äº› GLUT çš„å‚æ•°ï¼ŒGLUT_DOUBLE è®¾ç½®åŒç¼“å†²ï¼ˆdouble bufferingï¼Œå³å½“ä¸€ä¸ª buffer æ˜¾ç¤ºçš„æ—¶å€™ï¼Œå¦ä¸€ä¸ª buffer ç”¨æ¥ç»˜åˆ¶ï¼‰å’Œ color bufferï¼ŒåŽè€…æ˜¯å¤§å¤šæ•°æ¸²æŸ“ç»“æŸçš„åœ°æ–¹ï¼ˆæ¯”å¦‚å±å¹•ï¼‰ã€‚åŽé¢ç« èŠ‚ä¸­æˆ‘ä»¬ç»å¸¸ç”¨åˆ°è¿™ä¸¤ä¸ªå’Œå…¶ä»–çš„å‚æ•°ã€‚*/
 	glutInitDisplayMode(GLUT_DOUBLE | GLUT_RGBA);
 
-	/*ÕâÐ©º¯ÊýÉèÖÃÁË´°¿ÚµÄ²ÎÊý£¨°üÀ¨´°¿Ú´óÐ¡¡¢´°¿ÚÎ»ÖÃÒÔ¼°´°¿Ú±êÌâ£©²¢´´½¨´°¿Ú¡£*/
+	/*è¿™äº›å‡½æ•°è®¾ç½®äº†çª—å£çš„å‚æ•°ï¼ˆåŒ…æ‹¬çª—å£å¤§å°ã€çª—å£ä½ç½®ä»¥åŠçª—å£æ ‡é¢˜ï¼‰å¹¶åˆ›å»ºçª—å£ã€‚*/
 	int WindowWidth = 1024;
 	int WindowHeigth = 768;
 	glutInitWindowSize(WindowWidth, WindowHeigth);
@@ -35,10 +35,10 @@ int main(int argc, char* argv[])
 	glutInitWindowPosition((screenWidth - WindowWidth) / 2, (screenHeight - WindowHeigth) / 2);
 	glutCreateWindow("Tutorial 01");
 
-	/*GLUT ¿ÉÒÔºÍ»ù±¾µÄ´°¿ÚÏµÍ³½øÐÐ½»»¥£¬²¢ÇÒÌá¹©¸øÎÒÃÇÒ»Ð©»Øµ÷º¯Êý¡£ÔÚÕâÀïÎÒÃÇ½ö½öÊ¹ÓÃÁËÒ»¸öÖ÷»Øµ÷º¯Êý£¬Õâ¸öÖ÷»Øµ÷º¯ÊýÍê³ÉÁËÒ»Ö¡ÖÐµÄËùÓÐäÖÈ¾¹¤×÷¡£Õâ¸öº¯Êý±» GLUT ÄÚ²¿Ñ­»·²»¶ÏµÄµ÷ÓÃ¡£*/
+	/*GLUT å¯ä»¥å’ŒåŸºæœ¬çš„çª—å£ç³»ç»Ÿè¿›è¡Œäº¤äº’ï¼Œå¹¶ä¸”æä¾›ç»™æˆ‘ä»¬ä¸€äº›å›žè°ƒå‡½æ•°ã€‚åœ¨è¿™é‡Œæˆ‘ä»¬ä»…ä»…ä½¿ç”¨äº†ä¸€ä¸ªä¸»å›žè°ƒå‡½æ•°ï¼Œè¿™ä¸ªä¸»å›žè°ƒå‡½æ•°å®Œæˆäº†ä¸€å¸§ä¸­çš„æ‰€æœ‰æ¸²æŸ“å·¥ä½œã€‚è¿™ä¸ªå‡½æ•°è¢« GLUT å†…éƒ¨å¾ªçŽ¯ä¸æ–­çš„è°ƒç”¨ã€‚*/
 	glutDisplayFunc(RenderDisplay);
 
-	/*Õâ¸öº¯Êýµ÷ÓÃ½«¿ØÖÆ´«µÝ¸ø GLUT£¬²¢ÇÒ¿ªÆôÁËËü×Ô¼ºÄÚ²¿µÄÑ­»·¡£ÔÚÕâ¸öÑ­»·ÖÐ£¬Ëü¼àÌýÀ´×Ô´°¿ÚÏµÍ³µÄÊÂ¼þ²¢Í¨¹ýÎÒÃÇÉèÖÃµÄ»Øµ÷º¯Êý´«µÝ¸ø GLUT¡£ÔÚ±¾Àý×ÓÖÐ£¬GLUTÖ»µ÷ÓÃÎÒÃÇ¶¨ÒåÓÃÀ´ÏÔÊ¾´°¿ÚµÄ»Øµ÷º¯Êý£¨RenderDisplay£©£¬ÒÔÊ¹ÎÒÃÇÄÜäÖÈ¾Ö¡¡£*/
+	/*è¿™ä¸ªå‡½æ•°è°ƒç”¨å°†æŽ§åˆ¶ä¼ é€’ç»™ GLUTï¼Œå¹¶ä¸”å¼€å¯äº†å®ƒè‡ªå·±å†…éƒ¨çš„å¾ªçŽ¯ã€‚åœ¨è¿™ä¸ªå¾ªçŽ¯ä¸­ï¼Œå®ƒç›‘å¬æ¥è‡ªçª—å£ç³»ç»Ÿçš„äº‹ä»¶å¹¶é€šè¿‡æˆ‘ä»¬è®¾ç½®çš„å›žè°ƒå‡½æ•°ä¼ é€’ç»™ GLUTã€‚åœ¨æœ¬ä¾‹å­ä¸­ï¼ŒGLUTåªè°ƒç”¨æˆ‘ä»¬å®šä¹‰ç”¨æ¥æ˜¾ç¤ºçª—å£çš„å›žè°ƒå‡½æ•°ï¼ˆRenderDisplayï¼‰ï¼Œä»¥ä½¿æˆ‘ä»¬èƒ½æ¸²æŸ“å¸§ã€‚*/
 	glutMainLoop();
 	glewInit();
 
