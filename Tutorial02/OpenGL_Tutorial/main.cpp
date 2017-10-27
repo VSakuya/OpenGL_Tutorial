@@ -33,6 +33,7 @@ void RenderDisplay(void)
 	glutSwapBuffers();
 }
 
+/*Create vertex buffer, initialize its data*/
 void CreateVertexBuffer() 
 {
 	Vector3f Vertices[1];
